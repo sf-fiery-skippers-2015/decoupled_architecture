@@ -1,0 +1,18 @@
+<div class="questionForm">
+  <%= form_tag(html: {id: "new_question"}) do %>
+    <div class="field" id="title">
+      <%= label_tag(:title, "Submit a new thing:") %><br>
+      <%= text_field_tag(:title) %>
+    </div>
+
+    <div class="actions" id="submit_button">
+      <%= submit_tag("Submit!") %>
+    </div>
+  <% end %>
+
+</div>
+
+<div class="questionsBoard">
+  go away
+</div>
+<br>

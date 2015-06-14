@@ -6,6 +6,7 @@ class QuestionsController < ApplicationController
     p "HIT: QuestionController index route"
 
     @questions = Question.all
+    #render :json => {questions: @questions}
 
     render :json => @questions
   end
@@ -22,7 +23,7 @@ class QuestionsController < ApplicationController
 
   def show
     @answers = @question.answers
-    render :json => @question, :json => @answers
+    render :json =>{"question" => @question, "answers" => @answers }
   end
 
   private

@@ -12,13 +12,17 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    p "HIT: QuestionController create route"
-    @question = Question.new(question_params)
-    if @question.save
-      render :json => @question
-    else
-      render :json => false
-    end
+
+    new_question = Question.create(question_params)
+    render :json =>{"question" => new_question}
+
+    # p "HIT: QuestionController create route"
+    # @question = Question.new(question_params)
+    # if @question.save
+    #   render :json => @question
+    # else
+    #   render :json => false
+    # end
   end
 
   def show

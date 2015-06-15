@@ -14,7 +14,7 @@ var questionsIndex = function(){
         appendQuestion(question);
       })
     }).fail(function() {
-        console.log('may your jimmies remain unrustled');
+        console.log('Questions index load failed.');
     });
 
     $('#ask').on('click', function(event){
@@ -30,7 +30,8 @@ var questionsIndex = function(){
         data: $(this).serialize()
       }).done(function(data) {
         $form.each(function(){this.reset();});
-        appendQuestion(data);
+        console.log(data);
+        $('#questions_container').append(data);
       }).fail(function() {
         console.log('you fucked up.');
       });

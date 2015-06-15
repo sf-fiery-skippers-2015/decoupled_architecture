@@ -7,15 +7,29 @@ class QuestionsController < ApplicationController
 
   def questions_index
     questions =  HTTParty.get('http://localhost:3003/questions')
-    # p'*'*90
-    p questions
-    # p'*'*90
-
     render json: {questions: questions}
-    #return questions
   end
 
   def create
+    url = "http://localhost:3003/questions/"
+    options = {
+      body: {
+        question: {
+          title: params[:question][:title],
+          content: params[:question][:content],
+        }
+      }
+    }
+    response = HTTParty.post(url, options)
+    question = Question.new(response["question"])
+    render partial: 'display', locals: {question: question}
+  end
+
+  def edit
+
+  end
+
+  def update
 
   end
 
@@ -28,15 +42,13 @@ class QuestionsController < ApplicationController
 
     @question_id = params[:id]
 
-    #p @question_id
     response = HTTParty.get("http://localhost:3003/questions/"+@question_id)
-    answers = response["answers"]
-    @answers = []
+
     @answer = Answer.new
     @question = Question.new(response["question"])
+
+    answers = response["answers"]
+    @answers = []
     answers.each{ |answer| @answers << Answer.new(answer) }
-    # p'*'*90
-    # p @answers
-    # p'*'*90
   end
 end

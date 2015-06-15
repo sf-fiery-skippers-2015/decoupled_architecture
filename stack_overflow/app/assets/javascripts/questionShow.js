@@ -1,18 +1,14 @@
 $(document).on("page:change",function(){
-  questionDelete();
   answerDelete();
   answerCreate();
 })
 
-var questionDelete = function(){
-  $('#question-edit-delete').on('submit', '#delete-question', function(event){
-    event.preventDefault();
-    console.log($(this))
-  })
 
 
-}
-
+// $('#question-edit-delete').on('submit', '#edit-question', function(event){
+//     event.preventDefault();
+//     console.log($(this))
+//   })
 
 
 

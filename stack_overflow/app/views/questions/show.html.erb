@@ -1,10 +1,7 @@
 <div class="questions-show">
   <h1><%= @question.title %></h1>
   <%= render 'edit' %>
-  <span id="question-edit-delete">
-    <%= button_to "Edit", edit_question_path(@question), remote: true, html: {id: "edit-question"}  %> <br>
-    <%= button_to "Delete", question_path(@question), method: :delete, remote: true, html: {id: "delete-question"}  %>
-  </span>
+
 </div>
 <div class="answers-new">
   <%= form_for [@question, @answer], html: {id: "new-answer-form"} do |f| %>

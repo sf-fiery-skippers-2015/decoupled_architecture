@@ -2,7 +2,11 @@ class QuestionsController < ApplicationController
   include HTTParty
 
   def index
-
+    response = HTTParty.get("http://localhost:3003/questions/")
+    questions = response["questions"]
+    @questions = []
+    questions.each {|question| @questions << Question.new(question)}
+    @questions
   end
 
   def questions_index
@@ -31,6 +35,14 @@ class QuestionsController < ApplicationController
 
   def update
 
+  end
+
+  def destroy
+    p '*'*90
+    p params[:id]
+    p '*'*90
+    url = "http://localhost:3003/questions/#{params[:id]}"
+    response = HTTParty.delete(url)
   end
 
   def show

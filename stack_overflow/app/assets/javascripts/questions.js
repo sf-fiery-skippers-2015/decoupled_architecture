@@ -1,21 +1,11 @@
 $(document).on("page:change",function(){
   questionsIndex();
-  // questionShow();
-
+  questionDelete();
+  questionEdit();
 })
 
 var questionsIndex = function(){
   if ($(".questions-index").length) {
-    $.ajax({
-        url: 'http://localhost:3000/questions_index',
-        type: 'get'
-    }).done(function(data) {
-      data.questions.forEach(function(question){
-        appendQuestion(question);
-      })
-    }).fail(function() {
-        console.log('Questions index load failed.');
-    });
 
     $('#ask').on('click', function(event){
        $('#form_question').css("display", "inline-block");
@@ -39,12 +29,69 @@ var questionsIndex = function(){
   };
 }
 
+var questionDelete = function(){
+  $('.question-edit-delete').on('submit', '.delete-question', function(event){
+    event.preventDefault();
+    $this = $(this);
+    url = 'http://localhost:3000' + $(this).attr('action');
+    console.log(url);
+    $.ajax({
+      url: url,
+      type: "delete"
+    }).done(function(data){
+      $this.parents(".question-display").remove();
+      console.log("Question delete successful.");
+    }).fail(function(data){
+      console.log("Answer delete failed.")
+    })
+  })
+}
+
+var questionEdit = function(){
+  $('.question-edit-delete').on('submit', '.edit-question', function(event){
+    event.preventDefault();
+    $this = $(this);
+    url = 'http://localhost:3000' + $(this).attr('action');
+    console.log(url);
+    $.ajax({
+      url: url,
+      type: "delete"
+    }).done(function(data){
+      $this.parents(".question-display").remove();
+      console.log("Question delete successful.");
+    }).fail(function(data){
+      console.log("Answer delete failed.")
+    })
+  })
+}
+
 var appendQuestion = function(question){
   $("#questions_container").append(questionLink(question))
   $("#questions_container").append("<content>" + question.content + "</content>")
 };
 
-// var questionShow = function(){
+
+// }
+
+var questionLink = function(question){
+  return "<h3><a href='http://localhost:3000/questions/" + question.id + "'>" + question.title + "</a></h3>"
+}
+
+
+
+    // $.ajax({
+    //     url: 'http://localhost:3000/questions_index',
+    //     type: 'get'
+    // }).done(function(data) {
+    //   data.questions.forEach(function(question){
+    //     appendQuestion(question);
+    //   })
+    // }).fail(function() {
+    //     console.log('Questions index load failed.');
+    // });
+
+
+    // var questionShow = function(){
 //   if ($(".questions-show").length) {
 //     var urlString = 'http://localhost:3000/questions/';
 //     //debugger
@@ -60,9 +107,4 @@ var appendQuestion = function(question){
 //         console.log('may your jimmies remain unrustled');
 //     });
 //   }
-// }
-
-var questionLink = function(question){
-  return "<h3><a href='http://localhost:3000/questions/" + question.id + "'>" + question.title + "</a></h3>"
-}
 

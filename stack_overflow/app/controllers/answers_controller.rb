@@ -21,6 +21,19 @@ class AnswersController < ApplicationController
   def edit
   end
 
+  def update
+      url = "http://localhost:3003/questions/#{params[:id]}"
+      options = {
+      body: {
+        answer: {
+          title: params[:answer][:title],
+          content: params[:answer][:content],
+          question_id: params[:question_id]
+        }
+      }
+      response = HTTParty.put(url,options)
+  end
+
   def destroy
     url = "http://localhost:3003/questions/#{params[:question_id]}/answers/#{params[:id]}"
     response = HTTParty.delete(url)

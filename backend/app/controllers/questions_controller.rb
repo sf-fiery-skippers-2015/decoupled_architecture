@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
     @questions = Question.all
     #render :json => {questions: @questions}
 
-    render :json => @questions
+    render :json => {questions: @questions}
   end
 
   def create
@@ -28,6 +28,17 @@ class QuestionsController < ApplicationController
   def show
     @answers = @question.answers
     render :json =>{"question" => @question, "answers" => @answers }
+  end
+
+  def destroy
+   answers =  Question.find(params[:id]).answers
+
+    if Question.destroy(params[:id])
+      answers.delete_all
+      render :json => true
+    else
+      render :json => false
+    end
   end
 
   private
